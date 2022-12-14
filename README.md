@@ -20,42 +20,36 @@ ssh root@localhost -p 2222
 
 ## How to run it in Kubernetes
 
-The beauty of this container is that you can run it in Kubernetes. I use this trick a lot to backup the content of my PVCs.
+The beauty of this container is that you can run it in Kubernetes. I use this trick a lot to backup the content of my PVCs. You can read more about this in my article on medium.com: https://samdecrock.medium.com/transferring-data-between-kubernetes-clusters-c0c1b59930d1
 
 Create a `sshserver.yaml` with:
 
 
 ```yaml
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  labels:
-    name: sshserver
   name: sshserver
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      name: sshserver
-  template:
-    metadata:
-      labels:
-        name: sshserver
-    spec:
-      hostname: sshserver
-      containers:
-        - name: sshserver
-          image: samdecrock/sshserver:1.0.0
-          ports:
-            - containerPort: 22
-          volumeMounts:
-            - name: your-mount
-              mountPath: /mounts/your-mount
-      volumes:
-        - name: your-mount
-          persistentVolumeClaim:
-            claimName: your-mount
+  hostname: sshserver
+  containers:
+    - name: sshserver
+      image: samdecrock/sshserver:1.0.0
+      ports:
+        - containerPort: 22
+      volumeMounts:
+        - name: data1
+          mountPath: /mounts/data1
+        - name: data2
+          mountPath: /mounts/data2
+  volumes:
+    - name: data1
+      persistentVolumeClaim:
+        claimName: data1
+    - name: data2
+      persistentVolumeClaim:
+        claimName: data2
 
 ---
 apiVersion: v1
