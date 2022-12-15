@@ -31,6 +31,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: sshserver
+  labels:
+    name: sshserver
 spec:
   hostname: sshserver
   containers:
