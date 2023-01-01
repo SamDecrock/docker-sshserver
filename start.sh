@@ -1,4 +1,11 @@
-#!/bin/sh
+#!/bin/bash
+
+
+sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+[[ ! -z ${GATEWAY_PORTS+z} ]] && sed -ri "s/^#?GatewayPorts\s+.*/GatewayPorts ${GATEWAY_PORTS}/" /etc/ssh/sshd_config
+[[ ! -z ${PASSWORD_AUTHENTICATION+z} ]] && sed -ri "s/^#?PasswordAuthentication\s+.*/PasswordAuthentication ${PASSWORD_AUTHENTICATION}/" /etc/ssh/sshd_config
+
 
 echo "------------------------------------------"
 echo "username: root"
