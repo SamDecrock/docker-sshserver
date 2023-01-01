@@ -5,12 +5,12 @@
 With a randomly generated password:
 
 ```
-docker run -p 2222:22 samdecrock/sshserver:1.0.0:1.0.0
+docker run -p 2222:22 samdecrock/sshserver:1.0.0
 ```
 
 With a specified password:
 ```
-docker run -p 2222:22 --env ROOT_PASSWORD=mysecret samdecrock/sshserver:1.0.0:1.0.0
+docker run -p 2222:22 --env ROOT_PASSWORD=mysecret samdecrock/sshserver:1.0.0
 ```
 
 The ssh server is now available on port 2222:
