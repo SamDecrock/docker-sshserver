@@ -1,4 +1,4 @@
-# Ubuntu 20.04 SSH server
+# Ubuntu 20.04 SSH server in a docker container
 
 
 ## Environment variables
